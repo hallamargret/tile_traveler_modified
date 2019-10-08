@@ -80,6 +80,8 @@ def pull_lever_y_n(position, coins_from_lever):
         return coins_from_lever
 
 
+
+
 #main program starts here
 
 
