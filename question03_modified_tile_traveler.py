@@ -100,6 +100,8 @@ while play_again == "y" or play_again == "Y":
 
     print_valid_moves(position)
 
+    counter = 0
+
     while position != 3.1:
 
         direction = direction_from_user()
@@ -112,12 +114,17 @@ while play_again == "y" or play_again == "Y":
 
             print_valid_moves(position)
 
+            counter += 1
+
         else:
             print("Not a valid direction!")
+
+            counter += 1
         
             print_valid_moves(position)
 
     else:
-        print("Victory! Total coins {}.".format(coins_from_lever))
+        print("Victory! Total coins {}. Moves {}.".format(coins_from_lever, counter))
         play_again = input("Play again (y/n): ")
+
 
