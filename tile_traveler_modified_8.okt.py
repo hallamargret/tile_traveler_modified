@@ -59,8 +59,29 @@ def move(position, direction):
     return position
 
 
+def pull_lever_y_n(position, coins_from_lever):
+    ''' '''
+    if position == 1.2 or position == 2.2 or position == 2.3 or position == 3.2:
+        
+        pull_lever = input("Pull a lever (y/n): ")
+        
+        if pull_lever == "y" or pull_lever == "Y":
+            coins_from_lever += 1
+            print("You received 1 coin, your total is now {}.".format(coins_from_lever))
+            return coins_from_lever
+
+        else:
+            return coins_from_lever
+    
+    else:
+        return coins_from_lever
+
+
+
+
 #main program starts here
 start_position_float = 1.1
+coins_from_lever = 0
 
 position = start_position_float
 
@@ -75,6 +96,8 @@ while position != 3.1:
 
         position = move(position, direction)
 
+        coins_from_lever = pull_lever_y_n(position, coins_from_lever)
+
         print_valid_moves(position)
 
     else:
@@ -82,4 +105,4 @@ while position != 3.1:
 
 
 else:
-    print("Victory!")
+    print("Victory! Total coins {}.".format(coins_from_lever))
