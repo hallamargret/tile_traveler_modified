@@ -4,6 +4,7 @@
 # Step 4: Find valid moves for the next tile
 # Step 5: Do step 2-4 until the user is in tile 3.1
 # Step 6: Victory!
+import random
 
 def print_valid_moves(position):
     '''Takes in the position and prints out the valid moves'''
@@ -22,7 +23,8 @@ def print_valid_moves(position):
 
 def direction_from_user():
     '''Gets a N, W, E or S from the user, (depending on where the user wants/can move) and returns it '''  
-    direction = input('Direction: ')
+    direction = random.choice(["n", "e", "s", "w"])
+    print('Direction: {}'.format(direction))
     return direction
 
 def is_move_valid(position, direction):
@@ -63,7 +65,8 @@ def pull_lever_y_n(position, coins_from_lever):
     ''' '''
     if position == 1.2 or position == 2.2 or position == 2.3 or position == 3.2:
         
-        pull_lever = input("Pull a lever (y/n): ")
+        pull_lever = random.choice(["y", "n"])
+        print("Pull a lever (y/n): {}".format(pull_lever))
         
         if pull_lever == "y" or pull_lever == "Y":
             coins_from_lever += 1
@@ -80,30 +83,41 @@ def pull_lever_y_n(position, coins_from_lever):
 
 
 #main program starts here
-start_position_float = 1.1
-coins_from_lever = 0
-
-position = start_position_float
-
-print_valid_moves(position)
 
 
-while position != 3.1:
+play_again = "y"
 
-    direction = direction_from_user()
+while play_again == "y" or play_again == "Y":
 
-    if is_move_valid(position, direction) == True:
+    random_seed = int(input("Input seed: "))
+    random.seed(random_seed)
 
-        position = move(position, direction)
+    start_position_float = 1.1
 
-        coins_from_lever = pull_lever_y_n(position, coins_from_lever)
+    coins_from_lever = 0
 
-        print_valid_moves(position)
+    position = start_position_float
+
+    print_valid_moves(position)
+
+    while position != 3.1:
+
+        direction = direction_from_user()
+
+        if is_move_valid(position, direction) == True:
+            
+            position = move(position, direction)
+
+            coins_from_lever = pull_lever_y_n(position, coins_from_lever)
+
+            print_valid_moves(position)
+
+        else:
+            print("Not a valid direction!")
+        
+            print_valid_moves(position)
 
     else:
-        print("Not a valid direction!")
-        print_valid_moves(position)
+        print("Victory! Total coins {}.".format(coins_from_lever))
+        play_again = input("Play again (y/n): ")
 
-
-else:
-    print("Victory! Total coins {}.".format(coins_from_lever))
